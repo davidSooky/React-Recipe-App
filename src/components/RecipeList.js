@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 import { addRecipe } from "../state/actions";
 import RecipeItem from "./RecipeItem";
@@ -23,13 +24,16 @@ const RecipeList = ({ selectedDate, query }) => {
         <div className="recipe-list">
            {recipes.length 
            ?
-            recipes.map((recipe, index) => {
+            recipes.map(({ recipe }, index) => {
                 return (
                     <div className="recipe" key={index}>
-                        <RecipeItem data={recipe.recipe}>
+                        <RecipeItem data={recipe}>
                             <button
                                 className="btn btn-save"
-                                onClick={() => dispatch(addRecipe(recipe.recipe, selectedDate))}
+                                onClick={() => {
+                                    toast.success(`${recipe.label} saved to your plan.`);
+                                    dispatch(addRecipe(recipe, selectedDate));
+                                }}
                             >
                                 Save recipe
                             </button>
