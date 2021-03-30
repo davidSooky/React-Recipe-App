@@ -42,7 +42,9 @@ const RecipeList = ({ selectedDate, query }) => {
                 );
             })
             :
-            <h1 ref={ref}></h1>
+            <div className="message">
+                <h1 ref={ref}></h1>
+            </div>
             }
         </div>
     );

@@ -26,7 +26,7 @@ const SavedRecipes = () => {
         </div>
         : 
         <div className="message">
-            <h1>No recipes saved yet. Go on and search for recipes.</h1>
+            <h2>No recipes saved yet. Go on and search for recipes.</h2>
         </div>
     );
 };

@@ -163,26 +163,6 @@ html {
   word-spacing: 5px;
 }
 
-.btn {
-  outline: none;
-  background: none;
-  border: none;
-  border-radius: 1000px;
-  cursor: pointer;
-  padding: 10px 20px;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: 0.3s ease;
-}
-
-.btn-header {
-  display: block;
-  width: 200px;
-  margin: 30px auto;
-  border: 2px solid var(--secondary-color);
-  color: var(--secondary-color);
-}
-
 /* Recipe list styling */
 .recipe-list {
   max-width: 90%;
@@ -273,16 +253,6 @@ html {
   height: 65%;
   box-shadow: 0 7px 30px rgba(0, 0, 0, 0.4);
   transition: 0.3s ease;
-}
-
-.btn-save, .btn-show {
-  background-color: var(--info);
-  color: var(--secondary-color);
-  width: 10rem;
-}
-
-.btn-save:hover {
-  transform: scale(1.1);
 }
 
 /* Search form styling */
@@ -429,17 +399,9 @@ html {
   transform: rotate(180deg);
 }
 
-.btn-show, .btn-delete {
-  padding: 10px 20px;
-  display: inline-block;
-  margin-top: 20px;
-  width: auto;
-}
-
-.btn-delete {
-  margin-left: 15px;
-  background-color: var(--delete-color);
-  color: var(--secondary-color);
+.message {
+  padding: 20px 40px;
+  text-align: center;
 }
 
 /* Footer styling */
@@ -468,6 +430,59 @@ html {
 .footer .social-media:hover {
   background-color: var(--secondary-color);
   color: var(--main-color);
+}
+
+/* Button styling */
+.btn {
+  outline: none;
+  background: none;
+  border: none;
+  border-radius: 1000px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.3s ease;
+}
+
+.btn:not(.btn-header, .btn-clear-day):hover {
+  transform: scale(1.1);
+}
+
+.btn-header {
+  display: block;
+  width: 200px;
+  margin: 30px auto;
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+}
+
+.btn-show, .btn-delete {
+  padding: 10px 20px;
+  display: inline-block;
+  margin-top: 20px;
+  width: auto;
+}
+
+.btn-delete {
+  margin-left: 15px;
+  background-color: var(--delete-color);
+  color: var(--secondary-color);
+}
+
+.btn-save, .btn-show {
+  background-color: var(--info);
+  color: var(--secondary-color);
+  width: 10rem;
+}
+
+/* Notifications (Toastify) styling */
+.Toastify__toast--success {
+  background-color: var(--info) !important;
+}
+
+.Toastify__toast--error {
+  background-color: var(--delete-color) !important;
 }
 
 /* Media queries */
