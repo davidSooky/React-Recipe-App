@@ -11,6 +11,7 @@ gsap.registerPlugin(CSSRulePlugin);
 
 export const Header = () => {
     const [scrolled, setScrolled] = useState(false);
+    const [open, setOpen] = useState(false);
     const btnRef = useRef(null);
     const navRef = useRef(null);
     const container = useRef(null);
@@ -25,6 +26,7 @@ export const Header = () => {
         : setScrolled(false) 
     };
 
+    // Header reveal animation
     useEffect(() => {
         tl.set(container.current, { css: {visibility: "visible"}});
         tl.to(overlay, {duration: 1, left: "100%", ease: Power2.easeInOut})
@@ -32,7 +34,7 @@ export const Header = () => {
             .to([btnRef.current, navRef.current], {duration: 0.5, delay: 0.2, opacity: 1, ease: Power2.easeInOut});
     }, [btnRef, navRef, container, img, overlay]);
 
-    useEffect(() => {
+    useEffect(() => { 
         window.addEventListener("scroll", handleNavScroll);
 
         return () => {
@@ -46,7 +48,7 @@ export const Header = () => {
                 <div className="logo">
                     <img src={logo} alt={""} />
                 </div>
-                <ul className="nav-links">
+                <ul className={`nav-links ${open ? "active" : ""}`}>
                     <li>
                         <Link to="/" className={homePage ? "active" : ""}>Search</Link>
                     </li>
@@ -54,7 +56,7 @@ export const Header = () => {
                         <Link to="/saved" className={homePage ? "" : "active"}>Personal plan</Link>
                     </li>
                 </ul>
-                <i className="fas fa-bars fa-2x"></i>
+                <i className="fas fa-bars fa-2x" onClick={() => setOpen(!open)}></i>
             </nav>
             <div className="header-img" ref={container}>
                 <img src={headerImg} ref={img} alt={""} />
@@ -62,7 +64,8 @@ export const Header = () => {
                     <h2>Plan your meal with us</h2>
                     {homePage 
                         ? <a href="#searched-recipes" className="btn btn-header">Search recipes</a> 
-                        : <a href="#saved-recipes" className="btn btn-header">Check out your plan</a>}
+                        : <a href="#saved-recipes" className="btn btn-header">Check out your plan</a>
+                    }
                 </div>
             </div>
         </header>

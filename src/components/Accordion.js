@@ -41,7 +41,7 @@ const Accordion = ({ recipes, date }) => {
                                     })
                                 }
                                 </ul>
-                                <a href={url} className="btn btn-show" target="_blank">Show recipe</a>
+                                <a href={url} className="btn btn-show" rel="noreferrer" target="_blank">Show recipe</a>
                                 <a 
                                     className="btn btn-delete"
                                     onClick={() => {

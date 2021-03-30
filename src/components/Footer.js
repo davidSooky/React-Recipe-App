@@ -7,6 +7,7 @@ const Footer = () => {
             <a 
                 href="https://github.com/davidSooky/React-Recipe-App"
                 target="_blank"className="social-media"
+                rel="noreferrer"
             >
                 <i className="fab fa-github fa-2x"></i>
             </a>
