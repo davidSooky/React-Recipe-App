@@ -312,18 +312,41 @@ html {
 }
 
 .accordion .content-wrapper {
-  height: 0;
-  visibility: hidden;
-  opacity: 0;
   overflow: hidden;
-  transition: 0.5s ease;
 }
 
-.accordion .content-wrapper.active {
+/* CSSTransition styling */
+.content-wrapper-enter {
+  opacity: 0;
   height: auto;
-  visibility: visible;
+}
+.content-wrapper-enter-active {
+  opacity: 0.5;
+  transition: 300ms;
+  transition-property: height, opacity;
+}
+
+.content-wrapper-enter-done {
+  opacity: 1;
+  height: auto;
+}
+
+.content-wrapper-exit {
+  height: 200px;
   opacity: 1;
 }
+.content-wrapper-exit-active {
+  height: 0;
+  opacity: 0.5;
+  transition: 300ms;
+  transition-property: height, opacity;
+}
+
+.content-wrapper-exit-done {
+  height: 0;
+  opacity: 0;
+}
+/* CSSTransition styling */
 
 .accordion span {
   font-weight: bold;
@@ -484,6 +507,7 @@ html {
 .Toastify__toast--error {
   background-color: var(--delete-color) !important;
 }
+/* Notifications (Toastify) styling */
 
 /* Media queries */
 @media (max-width: 650px) {
@@ -503,18 +527,46 @@ html {
     display: grid;
     place-items: center;
     top: 50px;
-    left: 0;
-    transition: 0.3s ease;
-    visibility: hidden;
-    opacity: 0;
     height: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  
+/* CSSTransition styling */
+  .nav-links-enter {
+    height: 0 !important;
+    opacity: 0 !important;
   }
 
-  .header-container .nav-links.active {
-    visibility: visible;
-    height: auto;
-    opacity: 1;
+  .nav-links-enter-active {
+    height: 50px !important;
+    opacity: 0.8 !important;
+    transition: 200ms;
+    transition-property: opacity, height;
   }
+
+  .nav-links-enter-done {
+    height: auto !important;
+    opacity: 1 !important;
+  }
+
+  .nav-links-exit {
+    height: auto !important;
+    opacity: 1 !important;
+  }
+
+  .nav-links-exit-active {
+    opacity: 0.8 !important;
+    height: 50px !important;
+    transition: 200ms;
+    transition-property: opacity, height;
+  }
+
+  .nav-links-exit-done {
+    opacity: 0 !important;
+    height: 0 !important;
+  }
+  /* CSSTransition styling */
 
   .header-container i {
     display: inline-block;
@@ -533,6 +585,10 @@ html {
     font-size: 14px;
     padding-bottom: 0;
     margin-bottom: 25px;
+  }
+
+  .search-field .input-field .delete-search {
+    left: 100%;
   }
 
   .card {

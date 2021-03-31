@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 
 import { TimelineLite, Power2, gsap } from "gsap";
 import CSSRulePlugin from "gsap/CSSRulePlugin";
@@ -48,7 +49,8 @@ export const Header = () => {
                 <div className="logo">
                     <img src={logo} alt={""} />
                 </div>
-                <ul className={`nav-links ${open ? "active" : ""}`}>
+                <CSSTransition in={open} timeout={200} classNames="nav-links">
+                <ul className="nav-links">
                     <li>
                         <Link to="/" className={homePage ? "active" : ""}>Search</Link>
                     </li>
@@ -56,6 +58,7 @@ export const Header = () => {
                         <Link to="/saved" className={homePage ? "" : "active"}>Personal plan</Link>
                     </li>
                 </ul>
+                </CSSTransition>
                 <i className="fas fa-bars fa-2x" onClick={() => setOpen(!open)}></i>
             </nav>
             <div className="header-img" ref={container}>
