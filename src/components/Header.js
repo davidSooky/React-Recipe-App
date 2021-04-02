@@ -27,6 +27,15 @@ export const Header = () => {
         : setScrolled(false) 
     };
 
+    const closeNav = (e) => {
+        if(open) {
+            if(!navRef.current.contains(e.target)) {
+                setOpen(false);
+            }
+        }
+        
+    };
+
     // Header reveal animation
     useEffect(() => {
         tl.set(container.current, { css: {visibility: "visible"}});
@@ -37,11 +46,13 @@ export const Header = () => {
 
     useEffect(() => { 
         window.addEventListener("scroll", handleNavScroll);
-
+        document.body.addEventListener("click", closeNav);
+        
         return () => {
-            window.removeEventListener(handleNavScroll);
+            window.removeEventListener("scroll", handleNavScroll);
+            document.body.removeEventListener("click", closeNav);
         };
-    }, []);
+    }, [open]);
 
     return (
         <header className="header">

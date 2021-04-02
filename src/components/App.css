@@ -318,12 +318,13 @@ html {
 /* CSSTransition styling */
 .content-wrapper-enter {
   opacity: 0;
-  height: auto;
+  height: 0;
 }
+
 .content-wrapper-enter-active {
-  opacity: 0.5;
-  transition: 300ms;
-  transition-property: height, opacity;
+  opacity: 0.8;
+  height: 50%;
+  transition: height 300ms, opacity 300ms;
 }
 
 .content-wrapper-enter-done {
@@ -338,8 +339,7 @@ html {
 .content-wrapper-exit-active {
   height: 0;
   opacity: 0.5;
-  transition: 300ms;
-  transition-property: height, opacity;
+  transition: height 300ms, opacity 300ms;
 }
 
 .content-wrapper-exit-done {
@@ -526,8 +526,8 @@ html {
     width: 100%;
     display: grid;
     place-items: center;
-    top: 50px;
     height: 0;
+    top: 50px;
     left: 0;
     overflow: hidden;
   }
@@ -535,35 +535,35 @@ html {
 /* CSSTransition styling */
   .nav-links-enter {
     height: 0 !important;
-    opacity: 0 !important;
+    opacity: 0;
   }
 
   .nav-links-enter-active {
-    height: 50px !important;
-    opacity: 0.8 !important;
-    transition: 200ms;
+    height: 80% !important;
+    opacity: 0.5;
+    transition: 400ms;
     transition-property: opacity, height;
   }
 
   .nav-links-enter-done {
     height: auto !important;
-    opacity: 1 !important;
+    opacity: 1;
   }
 
   .nav-links-exit {
     height: auto !important;
-    opacity: 1 !important;
+    opacity: 1;
   }
 
   .nav-links-exit-active {
-    opacity: 0.8 !important;
-    height: 50px !important;
-    transition: 200ms;
+    opacity: 0.5;
+    height: 25% !important;
+    transition: 400ms;
     transition-property: opacity, height;
   }
 
   .nav-links-exit-done {
-    opacity: 0 !important;
+    opacity: 0;
     height: 0 !important;
   }
   /* CSSTransition styling */
