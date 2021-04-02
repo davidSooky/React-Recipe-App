@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { CSSTransition } from "react-transition-group";
 
 import AccordionContent from "./AccordionContent";
 
@@ -23,13 +24,14 @@ const Accordion = ({ recipes, date }) => {
                 <h3>{date} / {getDayName(date)}</h3>
                 <p>Total calories: <span>{recipes[date].reduce((accumulator, currentValue) => parseInt(accumulator + currentValue.calories), 0)}</span> kcal</p>
                 <i className={`fas fa-chevron-up ${visible ? "active" : ""}`} onClick={() => setVisible(!visible)} />
-            </div>   
-            <AccordionContent
-                recipes={recipes[date]}
-                visible={visible}
-                dispatch={dispatch}
-                date={date}
-            />
+            </div>
+            <CSSTransition in={visible} timeout={300} classNames="content-wrapper">
+                <AccordionContent
+                    recipes={recipes[date]}
+                    dispatch={dispatch}
+                    date={date}
+                />
+            </CSSTransition>
         </div>
     );
 };
