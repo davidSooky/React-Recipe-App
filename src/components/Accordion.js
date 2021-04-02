@@ -21,7 +21,7 @@ const Accordion = ({ recipes, date }) => {
             <div className="accordion-header">
                 <button className="btn btn-clear-day" onClick={handleDayDeletion}>Clear day</button>
                 <h3>{date} / {getDayName(date)}</h3>
-                <p>Total calories: <span>{recipes[date].reduce((accumulator, currentValue) => parseInt(accumulator) + parseInt(currentValue.calories), 0)}</span> kcal</p>
+                <p>Total calories: <span>{recipes[date].reduce((accumulator, currentValue) => parseInt(accumulator + currentValue.calories), 0)}</span> kcal</p>
                 <i className={`fas fa-chevron-up ${visible ? "active" : ""}`} onClick={() => setVisible(!visible)} />
             </div>   
             <AccordionContent

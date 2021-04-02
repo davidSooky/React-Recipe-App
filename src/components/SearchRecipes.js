@@ -16,6 +16,7 @@ const SearchRecipes = () => {
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
 
     useEffect(() => {
+        document.title = "Search for recipes";
         const fetchRecipes = async (url) => {
             const { data } = await axios.get(url, {params: {
                     q: query,

@@ -1,15 +1,25 @@
-import React from 'react';
-import { cssTransition, toast } from "react-toastify";
+import React, { useState } from 'react';
+import { toast } from "react-toastify";
 import { CSSTransition } from "react-transition-group";
+
+import CalorieChart from "./CalorieChart";
 
 import { deleteRecipe } from "../state/actions";
 import { numberFormat } from "./utilities";
 
 const AccordionContent = ({ recipes, visible, dispatch, date }) => {
+    const [chartVisible, setChartVisible] = useState(false);
+
     return (
         <CSSTransition in={visible} timeout={300} classNames="content-wrapper">
             <div className="content-wrapper">
-            {recipes.map(({ image, label, ingredientLines, url, calories, totalWeight, totalNutrients }, index) => {
+                <a className="btn btn-chart"
+                    onClick={() => setChartVisible(!chartVisible)}
+                >
+                    {chartVisible ? "Hide chart" : "Show chart"}
+                </a>
+            {!chartVisible ?
+            recipes.map(({ image, label, ingredientLines, url, calories, totalWeight, totalNutrients }, index) => {
                 return (
                     <div className="accordion-content" key={index}>
                         <div className="image">
@@ -48,7 +58,10 @@ const AccordionContent = ({ recipes, visible, dispatch, date }) => {
                         </div>
                     </div>
                 );
-            })}
+            })
+            :
+            <CalorieChart sourceData={recipes} />
+            }
             </div>
         </ CSSTransition>
     );

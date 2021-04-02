@@ -368,7 +368,7 @@ html {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.accordion .content-wrapper .accordion-content:first-child {
+.content-wrapper .accordion-content:first-child {
   border-top: none;
 }
 
@@ -427,6 +427,14 @@ html {
   text-align: center;
 }
 
+/* Chart styling */
+.chart-wrapper {
+  margin: 20px auto;
+  width: 450px;
+  height: 450px;
+}
+
+
 /* Footer styling */
 .footer {
   height: 70px;
@@ -469,7 +477,7 @@ html {
 }
 
 .btn:not(.btn-header, .btn-clear-day):hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .btn-header {
@@ -493,10 +501,16 @@ html {
   color: var(--secondary-color);
 }
 
-.btn-save, .btn-show {
+.btn-save, .btn-show, .btn-chart {
   background-color: var(--info);
   color: var(--secondary-color);
   width: 10rem;
+}
+
+.btn-chart {
+  margin: 10px auto;
+  display: block;
+  text-align: center;
 }
 
 /* Notifications (Toastify) styling */
@@ -651,5 +665,10 @@ html {
   .btn {
     padding: 5px;
     width: auto;
+  }
+
+  .chart-wrapper {
+    height: 300px;
+    width: 300px;
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
 
 import Accordion from "./Accordion";
@@ -6,6 +6,10 @@ import Accordion from "./Accordion";
 const SavedRecipes = () => {
     const savedRecipes = useSelector(state => state.savedRecipes);
     const dates = Object.keys(savedRecipes).sort((a,b) => a - b);
+
+    useEffect(() => {
+        document.title = "Saved recipes";
+    }, []);
 
     return (
         dates.length
