@@ -3,6 +3,7 @@ SPA to search for recipes and save them for a selected day. You can browse your 
 
 ## Project Screenshots
 ![alt text](https://github.com/davidSooky/React-Recipe-App/blob/master/src/images/header.JPG)
+![alt text](https://github.com/davidSooky/React-Recipe-App/blob/master/src/images/search.JPG)
 ![alt text](https://github.com/davidSooky/React-Recipe-App/blob/master/src/images/saved_recipes.JPG)
 
 ## Getting started
