@@ -1,5 +1,7 @@
 # Recipe Search App built with React
+SPA to search for recipes and save them for a selected day. You can browse your saved recipes and even track your daily calories and nutrients.
 
+## Project Screenshots
 ![alt text](https://github.com/davidSooky/React-Recipe-App/blob/master/src/images/header.JPG)
 ![alt text](https://github.com/davidSooky/React-Recipe-App/blob/master/src/images/saved_recipes.JPG)
 
