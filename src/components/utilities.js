@@ -19,8 +19,4 @@ export const getCurrentDate = () => {
     return splitDate.join("-");
 };
 
-export const numberFormat = (number) => {
-    return number.toFixed(2);
-};
-
 export const labels = {Fat: "FAT", Carbs: "CHOCDF", Sugar: "SUGAR", Protein: "PROCNT"};

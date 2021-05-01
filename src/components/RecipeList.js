@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 
 import { addRecipe } from "../state/actions";
 import RecipeItem from "./RecipeItem";
@@ -31,7 +30,6 @@ const RecipeList = ({ selectedDate, query }) => {
                             <button
                                 className="btn btn-save"
                                 onClick={() => {
-                                    toast.success(`${recipe.label} saved to your plan.`);
                                     dispatch(addRecipe(recipe, selectedDate));
                                 }}
                             >

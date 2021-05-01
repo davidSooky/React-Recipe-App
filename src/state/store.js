@@ -1,12 +1,10 @@
-import { createStore } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import reducer from "./reducers";
 
-const ls = window.localStorage;
 
-const initialState = ls.getItem("recipes") ? {savedRecipes: JSON.parse(ls.getItem("recipes"))} : {};
-
-const store = createStore(reducer, initialState,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-store.subscribe(() => ls.setItem("recipes", JSON.stringify(store.getState().savedRecipes)));
+const store = createStore(reducer, compose(applyMiddleware(thunk)));
 
 export default store;
+
+// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { CSSTransition } from "react-transition-group";
 
 import CalorieChart from "./CalorieChart";
 
 import { deleteRecipe } from "../state/actions";
-import { numberFormat } from "./utilities";
 
-const AccordionContent = ({ recipes, dispatch, date }) => {
+const AccordionContent = ({ recipes }) => {
     const [chartVisible, setChartVisible] = useState(false);
+    const dispatch = useDispatch();
 
     return (
         <div className="content-container">
@@ -20,16 +21,16 @@ const AccordionContent = ({ recipes, dispatch, date }) => {
         <CSSTransition in={chartVisible} timeout={300} classNames="chart">
             {!chartVisible ?
             <div>
-                {recipes.map(({ image, label, ingredientLines, url, calories, totalWeight, totalNutrients }, index) => {
+                {recipes.map(({ _id, image, name, ingredients, url, calories, weight, nutrients }) => {
                     return (
-                        <div className="accordion-content" key={index}>
+                        <div className="accordion-content" key={_id}>
                             <div className="image">
                                 <img src={image} alt=" " />
                             </div>
                             <div className="meal-info">
-                                <h3 className="meal-name">{label}</h3>
+                                <h3 className="meal-name">{name}</h3>
                                 <ul className="ingredient-list">
-                                    {ingredientLines.map((ingredient, index) => {
+                                    {ingredients.map((ingredient, index) => {
                                         return (
                                             <li className="ingredient" key={index}>
                                                 {ingredient}
@@ -41,8 +42,8 @@ const AccordionContent = ({ recipes, dispatch, date }) => {
                                 <a 
                                     className="btn btn-delete"
                                     onClick={() => {
-                                        toast.error(`${label} removed from your plan.`)
-                                        dispatch(deleteRecipe(label, date));
+                                        toast.error(`${name} removed from your plan.`)
+                                        dispatch(deleteRecipe(_id));
                                     }}
                                 >
                                     Delete recipe
@@ -50,12 +51,12 @@ const AccordionContent = ({ recipes, dispatch, date }) => {
                             </div>
                             <div className="energy">
                                 <h3 className="meal-name">
-                                    {calories.toFixed(0)} kcal / {totalWeight.toFixed(0)} g
+                                    {parseInt(calories.$numberDecimal)} kcal / {parseInt(weight.$numberDecimal)} g
                                 </h3>
-                                <p>Fat: <span>{numberFormat(totalNutrients.FAT.quantity)}</span> g</p>
-                                <p>Carbs: <span>{numberFormat(totalNutrients.CHOCDF.quantity)}</span> g</p>
-                                <p>Sugar: <span>{numberFormat(totalNutrients.SUGAR.quantity)}</span> g</p>
-                                <p>Protein: <span>{numberFormat(totalNutrients.PROCNT.quantity)}</span> g</p>
+                                <p>Fat: <span>{parseFloat(nutrients.fat.$numberDecimal).toFixed(2)}</span> g</p>
+                                <p>Carbs: <span>{parseFloat(nutrients.carbs.$numberDecimal).toFixed(2)}</span> g</p>
+                                <p>Sugar: <span>{parseFloat(nutrients.sugar.$numberDecimal).toFixed(2)}</span> g</p>
+                                <p>Protein: <span>{parseFloat(nutrients.protein.$numberDecimal).toFixed(2)}</span> g</p>
                             </div>
                         </div>
                     );

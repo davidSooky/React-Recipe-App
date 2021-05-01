@@ -1,5 +1,8 @@
-import { ADD_DATA, SAVE_RECIPE, DELETE_RECIPE, CLEAR_DATA, CLEAR_RECIPES, CLEAR_DAY } from "./actions";
+import { ADD_DATA, GET_RECIPES, SAVE_RECIPE, DELETE_RECIPE, CLEAR_DATA, CLEAR_RECIPES, CLEAR_DAY, GET_RECIPES_START_LOADING, GET_RECIPES_ERROR } from "./actions";
 import { combineReducers } from "redux";
+import { toast } from "react-toastify";
+
+import { getDayName } from "../components/utilities";
 
 const searchedRecipesReducer = (state = [], action) => {
     switch (action.type) {
@@ -12,25 +15,31 @@ const searchedRecipesReducer = (state = [], action) => {
     } 
 };
 
-const savedRecipesReducer = (state = {}, action) => {
-    const newState = {...state};
+const initialState = {
+    recipes: [],
+    loading: false,
+    error: null
+};
+
+const savedRecipesReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_RECIPES_START_LOADING:
+            return {...state, loading: action.payload, error: null};
+        case GET_RECIPES:
+            return {...state, recipes: [...action.payload], loading: false};
+        case GET_RECIPES_ERROR:
+            toast.error(`${action.error}`);
+            return {...state, loading: false, error: action.error};
         case SAVE_RECIPE:
-            if (!newState[action.date]) {     
-                newState[action.date] = [action.payload];
-            } else {
-                newState[action.date].push(action.payload);
-            }
-            return newState;
+            toast.success(`${action.payload.name} saved to your plan.`);
+            return {...state, recipes: [...state.recipes, action.payload]};
         case DELETE_RECIPE:
-            const filteredRecipes = newState[action.date].filter(element => element.label !== action.payload);
-            filteredRecipes.length ? newState[action.date] = filteredRecipes : delete newState[action.date];
-            return newState;
+            return {...state, recipes: state.recipes.filter(recipe => recipe._id !== action.id)};
         case CLEAR_DAY:
-            delete newState[action.date];
-            return newState;
+            toast.success(`${action.date} / ${getDayName(action.date)} cleared.`);
+            return {...state, recipes: state.recipes.filter(recipe => recipe.date !== action.date)};
         case CLEAR_RECIPES:
-            return [];
+            return {...state, recipes: []};
         default:
             return state;
     }
