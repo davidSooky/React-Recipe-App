@@ -6,18 +6,16 @@ import RecipeItem from "./RecipeItem";
 
 const RecipeList = ({ selectedDate, query }) => {
     const ref = useRef(null);
-    const recipes = useSelector(state => state.searchedRecipes);
+    const recipes = useSelector(state => state.searchedRecipes.recipes);
+    const error = useSelector(state => state.searchedRecipes.error);
+    const isLoading = useSelector(state => state.searchedRecipes.loading);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if(recipes.length) {
             window.scroll({top: 700});
-        } else if(!recipes.length && query.length) {
-            ref.current.textContent = "Loading recipes...";
-        } else if(!recipes.length && !query.length){
-            ref.current.textContent = "Select a day and start to search for recipes.";
         }
-    }, [recipes, query]);
+    }, [recipes]);
 
     return (
         <div className="recipe-list">
@@ -41,7 +39,7 @@ const RecipeList = ({ selectedDate, query }) => {
             })
             :
             <div className="message">
-                <h1 ref={ref}></h1>
+                <h1 ref={ref}>{(isLoading && "Loading recipes...") || error || "Select a day and start to search for recipes."}</h1>
             </div>
             }
         </div>

@@ -4,6 +4,8 @@ import axios from "axios";
 import { APP_ID, APP_KEY, BASE_URL } from "../config";
 
 export const ADD_DATA = "ADD_DATA";
+export const ADD_DATA_LOADING = "ADD_DATA_LOADING";
+export const ADD_DATA_ERROR = "ADD_DATA_ERROR";
 export const GET_RECIPES = "GET_RECIPES";
 export const GET_RECIPES_START_LOADING = "GET_RECIPES_START_LOADING";
 export const GET_RECIPES_ERROR = "GET_RECIPES_ERROR";
@@ -18,6 +20,7 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGOUT = "LOGOUT";
 
 export const addData = (query) => async dispatch => {
+    dispatch({type: ADD_DATA_LOADING});
     try {
         const { data: { hits } } = await axios.get(BASE_URL, {params: {
             q: query,
@@ -26,9 +29,17 @@ export const addData = (query) => async dispatch => {
             to: 20
         }});
 
-        dispatch({type: ADD_DATA, payload: hits});
+        if(hits.length) {
+            setTimeout(() => {
+                dispatch({type: ADD_DATA, payload: hits});
+            }, 1500);
+        } else {
+            setTimeout(() => {
+                dispatch({type: ADD_DATA_ERROR, error: "Recipe not found..."});
+            }, 1500);
+        }
     } catch (error) {
-        console.log(error);
+        dispatch({type: ADD_DATA_ERROR, error: error.response});
     }
 };
 

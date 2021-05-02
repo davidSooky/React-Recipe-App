@@ -12,12 +12,16 @@ const Accordion = ({ recipes, date }) => {
     const dispatch = useDispatch();
     const recipesForCurrentDate = recipes.filter(recipe => recipe.date === date);
 
+    const getTotalCalories = () => {
+        return recipesForCurrentDate.reduce((accumulator, {calories: {$numberDecimal: calorie}}) => parseFloat(accumulator) + parseFloat(calorie), 0).toFixed(2);
+    }
+
     return (
         <div className="accordion">
             <div className="accordion-header">
                 <button className="btn btn-clear-day" onClick={() => dispatch(clearDay(date))}>Clear day</button>
                 <h3>{date} / {getDayName(date)}</h3>
-                <p>Total calories: <span>{recipesForCurrentDate.reduce((accumulator, {calories: {$numberDecimal: calorie}}) => parseFloat(accumulator + calorie), 0).toFixed(2)}</span> kcal</p>
+                <p>Total calories: <span>{getTotalCalories()}</span> kcal</p>
                 <i className={`fas fa-chevron-up ${visible ? "active" : ""}`} onClick={() => setVisible(!visible)} />
             </div>
             <CSSTransition in={visible} timeout={300} classNames="content-wrapper">

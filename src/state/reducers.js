@@ -1,16 +1,20 @@
-import { ADD_DATA, GET_RECIPES, SAVE_RECIPE, DELETE_RECIPE, CLEAR_DATA, CLEAR_RECIPES, CLEAR_DAY, GET_RECIPES_START_LOADING, GET_RECIPES_ERROR, LOGIN, LOGIN_ERROR, LOGOUT, REGISTER } from "./actions";
+import { ADD_DATA, GET_RECIPES, SAVE_RECIPE, DELETE_RECIPE, CLEAR_DATA, CLEAR_RECIPES, CLEAR_DAY, GET_RECIPES_START_LOADING, GET_RECIPES_ERROR, LOGIN, LOGIN_ERROR, LOGOUT, REGISTER, ADD_DATA_ERROR, ADD_DATA_LOADING } from "./actions";
 import { combineReducers } from "redux";
 import { toast } from "react-toastify";
 import decode from "jwt-decode";
 
 import { getDayName } from "../components/utilities";
 
-const searchedRecipesReducer = (state = [], action) => {
+const searchedRecipesReducer = (state = {recipes: [], error: null, loading: false}, action) => {
     switch (action.type) {
         case ADD_DATA:
-            return [...state, ...action.payload];
+            return {...state, recipes: [...action.payload], loading: false, error: null};
+        case ADD_DATA_LOADING:
+            return {...state, loading: true, error: null};
+        case ADD_DATA_ERROR:
+            return {...state, error: action.error, loading: false};
         case CLEAR_DATA:
-            return [];
+            return {...state, recipes: [], error: null};
         default:
             return state;
     } 

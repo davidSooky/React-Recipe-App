@@ -11,11 +11,19 @@ const CalorieChart = ({ sourceData }) => {
 
         for(const value of Object.values(labels)) {
             data.push(source.reduce((accumulator, currentValue) => {
-                return parseInt(accumulator + currentValue.totalNutrients[value].quantity);
-            }, 0))
+                return parseFloat(accumulator) + parseFloat(currentValue.nutrients[value].$numberDecimal);
+            }, 0).toFixed(2));
         };
 
         return data;
+
+        // return source.map(data => {
+        //     return data.nutrients.map(nutrient => {
+        //         source.reduce((accumulator, currentValue) => {
+        //             return parseFloat(accumulator) + parseFloat(currentValue[nutrient].$numberDecimal);
+        //         }, 0).toFixed(2);
+        //     });
+        // });
     };
 
     useEffect(() => {
@@ -23,7 +31,7 @@ const CalorieChart = ({ sourceData }) => {
         const CalorieChart = new Chart(ChartRef, {
             type: 'doughnut',
             data: {
-                labels: Object.keys(labels),
+                labels: Object.keys(sourceData[0].nutrients),
                 datasets: [{
                     data: getData(sourceData),
                     backgroundColor: [

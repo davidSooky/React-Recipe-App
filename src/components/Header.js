@@ -74,8 +74,8 @@ export const Header = ({ openModal }) => {
                     </li>
                     <li>
                         {!user
-                            ? <a onClick={() => openModal(true)}>Login</a>
-                            : <a onClick={() => dispatch(logout(route))}>Logout</a>
+                            ? <a href="javascript:void(0);" onClick={() => openModal(true)}>Login</a>
+                            : <a href="javascript:void(0);" onClick={() => dispatch(logout(route))}>Logout</a>
                         }
                     </li>
                 </ul>
@@ -87,7 +87,7 @@ export const Header = ({ openModal }) => {
                 <div className="header-content" ref={btnRef}>
                     {user && <h3>Hello {user}</h3>}
                     <h2>Plan your meal with us</h2>
-                    {currentPage 
+                    {currentPage === "/"
                         ? <a href="#searched-recipes" className="btn btn-header">Search recipes</a> 
                         : <a href="#saved-recipes" className="btn btn-header">Check out your plan</a>
                     }
