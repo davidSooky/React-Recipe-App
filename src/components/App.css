@@ -78,6 +78,7 @@ html {
   padding: 10px 20px;
   float: left;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .header-container .nav-links li a::after {
@@ -482,6 +483,29 @@ html {
 .footer .social-media:hover {
   background-color: var(--secondary-color);
   color: var(--main-color);
+}
+
+/* Modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  right: 0;
+  display: none;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
+
+.modal-overlay.active {
+  display: grid;
+}
+
+.auth {
+  z-index: 101;
+  width: 500px;
+  background-color: #fff;
 }
 
 /* Button styling */

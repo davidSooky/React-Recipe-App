@@ -16,4 +16,7 @@ API.interceptors.request.use(request => {
 
 export const getRecipes = () => API.get("/recipes");
 export const saveRecipe = (data, date) => API.post("recipes/save", {data, date});
+export const deleteRecipe = (id) => API.delete(`recipes/delete/${id}`);
 export const clearDay = date => API.post("recipes/delete", {date});
+export const login = inputData => API.post("/login", inputData);
+export const signup = inputData => API.post("/signup", inputData);

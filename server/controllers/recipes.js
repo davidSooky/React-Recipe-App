@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Recipe from "../models/recipe.js";
 
 
@@ -39,6 +40,20 @@ export const saveRecipe = async (req, res) => {
         res.status(201).json(newRecipe);
     } catch (error) {
         console.log(error)
+        res.status(409).send("Something went wrong. Try again later.");
+    }
+};
+
+export const deleteRecipe = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No post with this id.");
+
+        await Recipe.findByIdAndRemove({_id: id});
+
+        res.json({message: "Post deleted successfully."});
+    } catch (error) {
         res.status(409).send("Something went wrong. Try again later.");
     }
 };

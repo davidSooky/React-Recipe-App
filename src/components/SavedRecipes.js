@@ -6,6 +6,7 @@ import Accordion from "./Accordion";
 
 const SavedRecipes = () => {
     const savedRecipes = useSelector(state => state.savedRecipes.recipes);
+    const errorMessage = useSelector(state => state.savedRecipes.error);
     const dispatch = useDispatch();
 
     const dates = [...new Set([...savedRecipes.map(recipe => recipe.date)].sort((a,b) => a - b))];
@@ -14,7 +15,7 @@ const SavedRecipes = () => {
         document.title = "Saved recipes";
 
         dispatch(getRecipes());
-    }, [savedRecipes]);
+    }, [savedRecipes, dispatch]);
 
     return (
         savedRecipes.length
@@ -34,7 +35,7 @@ const SavedRecipes = () => {
         </div>
         : 
         <div className="message">
-            <h2>No recipes saved yet. Go on and search for recipes.</h2>
+            <h2>{errorMessage}</h2>
         </div>
     );
 };

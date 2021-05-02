@@ -1,6 +1,7 @@
-import { ADD_DATA, GET_RECIPES, SAVE_RECIPE, DELETE_RECIPE, CLEAR_DATA, CLEAR_RECIPES, CLEAR_DAY, GET_RECIPES_START_LOADING, GET_RECIPES_ERROR } from "./actions";
+import { ADD_DATA, GET_RECIPES, SAVE_RECIPE, DELETE_RECIPE, CLEAR_DATA, CLEAR_RECIPES, CLEAR_DAY, GET_RECIPES_START_LOADING, GET_RECIPES_ERROR, LOGIN, LOGIN_ERROR, LOGOUT, REGISTER } from "./actions";
 import { combineReducers } from "redux";
 import { toast } from "react-toastify";
+import decode from "jwt-decode";
 
 import { getDayName } from "../components/utilities";
 
@@ -34,6 +35,7 @@ const savedRecipesReducer = (state = initialState, action) => {
             toast.success(`${action.payload.name} saved to your plan.`);
             return {...state, recipes: [...state.recipes, action.payload]};
         case DELETE_RECIPE:
+            toast.success("Recipe deleted.");
             return {...state, recipes: state.recipes.filter(recipe => recipe._id !== action.id)};
         case CLEAR_DAY:
             toast.success(`${action.date} / ${getDayName(action.date)} cleared.`);
@@ -45,9 +47,34 @@ const savedRecipesReducer = (state = initialState, action) => {
     }
 };
 
+const authInitialState = {
+    user: localStorage.getItem("token") ? decode(JSON.parse(localStorage.getItem("token"))).username : null,
+    error: null
+}
+
+const authReducer = (state = authInitialState, action) => {
+    switch(action.type) {
+        case LOGIN:
+        case REGISTER:
+            localStorage.setItem("token", JSON.stringify(action.payload.token));
+            toast.success("Logged in successfully");
+            return {...state, user: decode(action.payload.token).username, error: null};
+        case LOGIN_ERROR:
+            toast.error(`${action.error}`);
+            return {...state, error: action.error};
+        case LOGOUT:
+            localStorage.removeItem("token");
+            toast.success("Logged out successfully");
+            return {...state, user: null, error: null};
+        default:
+            return state;
+    }
+};
+
 const rootReducer = combineReducers({
     searchedRecipes: searchedRecipesReducer,
-    savedRecipes: savedRecipesReducer
+    savedRecipes: savedRecipesReducer,
+    user: authReducer
 });
 
 export default rootReducer;

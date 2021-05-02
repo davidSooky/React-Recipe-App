@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { CSSTransition } from "react-transition-group";
 
 import CalorieChart from "./CalorieChart";
@@ -25,7 +24,7 @@ const AccordionContent = ({ recipes }) => {
                     return (
                         <div className="accordion-content" key={_id}>
                             <div className="image">
-                                <img src={image} alt=" " />
+                                <img src={image} alt="" />
                             </div>
                             <div className="meal-info">
                                 <h3 className="meal-name">{name}</h3>
@@ -42,7 +41,6 @@ const AccordionContent = ({ recipes }) => {
                                 <a 
                                     className="btn btn-delete"
                                     onClick={() => {
-                                        toast.error(`${name} removed from your plan.`)
                                         dispatch(deleteRecipe(_id));
                                     }}
                                 >

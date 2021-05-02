@@ -12,6 +12,10 @@ export const DELETE_RECIPE = "DELETE_RECIPE";
 export const CLEAR_DAY = "CLEAR_DAY";
 export const CLEAR_DATA = "CLEAR_DATA";
 export const CLEAR_RECIPES = "CLEAR_RECIPES";
+export const REGISTER = "REGISTER";
+export const LOGIN = "LOGIN";
+export const LOGIN_ERROR = "LOGIN_ERROR";
+export const LOGOUT = "LOGOUT";
 
 export const addData = (query) => async dispatch => {
     try {
@@ -49,8 +53,13 @@ export const addRecipe = (recipe, date) => async dispatch => {
     }
 };
 
-export const deleteRecipe = id => {
-    return {type: DELETE_RECIPE, id};
+export const deleteRecipe = id => async dispatch=> {
+    try {
+        await api.deleteRecipe(id);
+        dispatch({type: DELETE_RECIPE, id});
+    } catch (error) {
+        dispatch({type: GET_RECIPES_ERROR, error: error.response.data});
+    }
 };
 
 export const clearDay = date => async dispatch => {
@@ -66,6 +75,32 @@ export const clearData = () => {
     return {type: CLEAR_DATA};
 };
 
-export const clearRecipes= () => {
+export const clearRecipes = () => {
     return {type: CLEAR_RECIPES};
+};
+
+// Auth actions
+export const login = (route, inputData) => async dispatch => {
+    try {
+        const { data } = await api.login(inputData);
+        route.push("/");
+        dispatch({type: LOGIN, payload: data});
+    } catch (error) {
+        dispatch({type: LOGIN_ERROR, error: error.response.data});
+    }
+};
+
+export const signup = (route, inputData) => async dispatch => {
+    try {
+        const { data } = await api.login(inputData);
+        route.push("/");
+        dispatch({type: REGISTER, payload: data});
+    } catch (error) {
+        dispatch({type: LOGIN_ERROR, error: error.response.data});
+    }
+};
+
+export const logout = (route) => {
+    route.push("/");
+    return {type: LOGOUT};
 };
