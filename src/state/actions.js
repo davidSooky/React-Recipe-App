@@ -103,7 +103,7 @@ export const login = (route, inputData) => async dispatch => {
 
 export const signup = (route, inputData) => async dispatch => {
     try {
-        const { data } = await api.login(inputData);
+        const { data } = await api.signup(inputData);
         route.push("/");
         dispatch({type: REGISTER, payload: data});
     } catch (error) {

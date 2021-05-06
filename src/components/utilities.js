@@ -18,5 +18,3 @@ export const getCurrentDate = () => {
 
     return splitDate.join("-");
 };
-
-export const labels = {fat: "fat", sugar: "sugar", carbs: "carbs", protein: "protein"};

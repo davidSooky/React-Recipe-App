@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { addRecipe } from "../state/actions";
 import RecipeItem from "./RecipeItem";
 
-const RecipeList = ({ selectedDate, query }) => {
+const RecipeList = ({ selectedDate }) => {
     const ref = useRef(null);
     const recipes = useSelector(state => state.searchedRecipes.recipes);
     const error = useSelector(state => state.searchedRecipes.error);
     const isLoading = useSelector(state => state.searchedRecipes.loading);
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         if(recipes.length) {
             window.scroll({top: 700});

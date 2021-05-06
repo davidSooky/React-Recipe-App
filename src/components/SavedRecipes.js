@@ -10,7 +10,7 @@ const SavedRecipes = () => {
     const user = useSelector(state => state.user.user);
     const dispatch = useDispatch();
 
-    const dates = [...new Set([...savedRecipes.map(recipe => recipe.date)].sort((a,b) => a - b))];
+    const dates = [...new Set([...savedRecipes.map(recipe => recipe.date)])].sort((a,b) => new Date(b) - new Date(a));
 
     useEffect(() => {
         document.title = "Saved recipes";
@@ -24,7 +24,8 @@ const SavedRecipes = () => {
         savedRecipes.length
         ? 
         <div id="saved-recipes">
-            {dates.map((date,index) => {
+            {
+            dates.map((date,index) => {
                 return(
                     <div className="accordion-wrapper" key={index}>
                         <Accordion 

@@ -36,7 +36,7 @@ const SearchRecipes = () => {
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
             />
-            <RecipeList selectedDate={selectedDate} query={query} />
+            <RecipeList selectedDate={selectedDate} />
         </section>
     );
 };

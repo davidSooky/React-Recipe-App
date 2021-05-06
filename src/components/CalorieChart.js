@@ -1,29 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from "chart.js";
 
-import { labels } from "./utilities";
 
 const CalorieChart = ({ sourceData }) => {
     const ref = useRef(null);
+    const keys = Object.keys(sourceData[0].nutrients);
 
-    const getData = (source) => {
-        const data = [];
-
-        for(const value of Object.values(labels)) {
-            data.push(source.reduce((accumulator, currentValue) => {
-                return parseFloat(accumulator) + parseFloat(currentValue.nutrients[value].$numberDecimal);
-            }, 0).toFixed(2));
-        };
-
-        return data;
-
-        // return source.map(data => {
-        //     return data.nutrients.map(nutrient => {
-        //         source.reduce((accumulator, currentValue) => {
-        //             return parseFloat(accumulator) + parseFloat(currentValue[nutrient].$numberDecimal);
-        //         }, 0).toFixed(2);
-        //     });
-        // });
+    const getDataForChart = (sourceData) => {
+        return keys.map(key => {
+            return sourceData.reduce((acc, { nutrients }) => parseFloat(acc) + parseFloat(nutrients[key].$numberDecimal), 0).toFixed(2);
+        });
     };
 
     useEffect(() => {
@@ -31,9 +17,9 @@ const CalorieChart = ({ sourceData }) => {
         const CalorieChart = new Chart(ChartRef, {
             type: 'doughnut',
             data: {
-                labels: Object.keys(sourceData[0].nutrients),
+                labels: keys,
                 datasets: [{
-                    data: getData(sourceData),
+                    data: getDataForChart(sourceData),
                     backgroundColor: [
                         '#467302',
                         '#F29F05',

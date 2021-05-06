@@ -69,7 +69,7 @@ const authReducer = (state = authInitialState, action) => {
         case LOGOUT:
             localStorage.removeItem("token");
             toast.success("Logged out successfully");
-            return {...state, user: null, error: null};
+            return {user: null, error: null};
         default:
             return state;
     }

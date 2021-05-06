@@ -21,9 +21,9 @@ export const signup = async (req, res) => {
         const newProfile = await Profile.create({username, email, password: hashedPassword});
         const token = jwt.sign({username: newProfile.username, id: newProfile._id}, process.env.TOKEN_SECRET, {expiresIn: "2h"});
 
-        return res.status(201).json({result: newProfile, token})
+        res.status(201).json({result: newProfile, token})
     } catch (error) {
-        return res.status(500).send("Something went wrong. Try again later.");
+        res.status(500).send("Something went wrong. Try again later.");
     }
 };
 
@@ -38,8 +38,8 @@ export const login = async (req, res) => {
         if(!passwordCheck) return res.status(400).send("Password not valid.");
 
         const token = jwt.sign({username: user.username, id: user._id}, process.env.TOKEN_SECRET, {expiresIn: "2h"});
-        return res.status(200).json({result: user, message:"Logged in successfully", token});
+        res.status(200).json({result: user, message:"Logged in successfully", token});
     } catch (error) {
-        return res.status(500).send("Something went wrong. Try again later.");
+        res.status(500).send("Something went wrong. Try again later.");
     }
 };

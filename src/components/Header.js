@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CSSTransition } from "react-transition-group";
+import decode from "jwt-decode";
 
 import { TimelineLite, Power2, gsap } from "gsap";
 import CSSRulePlugin from "gsap/CSSRulePlugin";
 
-import { logout } from "../state/actions";
+import { logout, clearData } from "../state/actions";
 import headerImg from "../images/header-img.jpg";
 import logo from "../images/logo.png";
 
@@ -15,22 +16,25 @@ gsap.registerPlugin(CSSRulePlugin);
 export const Header = ({ openModal }) => {
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
+
     const btnRef = useRef(null);
     const navRef = useRef(null);
     const container = useRef(null);
     const img = useRef(null);
     const overlay = CSSRulePlugin.getRule(".header-img:after");
+    
     const currentPage = useLocation().pathname;
     const user = useSelector(state => state.user.user);
     const dispatch = useDispatch();
     const route = useHistory();
-    const tl = new TimelineLite();
 
     const handleNavScroll = () => {
         document.body.scrollTop > 150 || document.documentElement.scrollTop > 150
         ? setScrolled(true)
         : setScrolled(false) 
     };
+
+    const tl = useMemo(() => new TimelineLite(), []);
 
     const closeNav = useCallback((e) => {
         if(open) {
@@ -40,23 +44,34 @@ export const Header = ({ openModal }) => {
         }  
     }, [open]);
 
+    const handleLogout = () => {
+        dispatch(clearData());
+        dispatch(logout(route));
+    };
+
     // Header reveal animation
     useEffect(() => {
         tl.set(container.current, {css: {visibility: "visible"}});
         tl.to(overlay, {duration: 1, left: "100%", ease: Power2.easeInOut})
             .from(img.current, {scale: 1.4, duration: 1, delay: -0.8, ease: Power2.easeInOut})
             .to([btnRef.current, navRef.current], {duration: 0.5, delay: 0.2, opacity: 1, ease: Power2.easeInOut});
-    }, [btnRef, navRef, container, img, overlay]);
+    }, [btnRef, navRef, container, img, overlay, tl]);
 
     useEffect(() => { 
         window.addEventListener("scroll", handleNavScroll);
         document.body.addEventListener("click", closeNav);
-        
+
+        if(localStorage.getItem("token")) {
+            if(decode(JSON.parse(localStorage.getItem("token"))).exp * 1000 < new Date().getTime()) {
+                dispatch(logout(route));
+            }
+        }
+
         return () => {
             window.removeEventListener("scroll", handleNavScroll);
             document.body.removeEventListener("click", closeNav);
         };
-    }, [open, closeNav]);
+    }, [open, closeNav, currentPage, dispatch, route]);
 
     return (
         <header className="header">
@@ -75,7 +90,7 @@ export const Header = ({ openModal }) => {
                     <li>
                         {!user
                             ? <a href="javascript:void(0);" onClick={() => openModal(true)}>Login</a>
-                            : <a href="javascript:void(0);" onClick={() => dispatch(logout(route))}>Logout</a>
+                            : <a href="javascript:void(0);" onClick={handleLogout}>Logout</a>
                         }
                     </li>
                 </ul>
