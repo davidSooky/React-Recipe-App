@@ -691,7 +691,7 @@ html {
     height: 50px;
   }
 
-  .btn {
+  .btn:not(.btn-login) {
     padding: 5px;
     width: auto;
   }

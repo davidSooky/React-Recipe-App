@@ -2,6 +2,7 @@ import * as api from "../api";
 import axios from "axios";
 
 import { APP_ID, APP_KEY, BASE_URL } from "../config";
+import { shuffleRecipes } from "../components/utilities";
 
 export const ADD_DATA = "ADD_DATA";
 export const ADD_DATA_LOADING = "ADD_DATA_LOADING";
@@ -26,12 +27,14 @@ export const addData = (query) => async dispatch => {
             q: query,
             app_id: APP_ID,
             app_key: APP_KEY,
-            to: 20
+            to: 100
         }});
+
+        const recipes = shuffleRecipes(hits).slice(0,20);
 
         if(hits.length) {
             setTimeout(() => {
-                dispatch({type: ADD_DATA, payload: hits});
+                dispatch({type: ADD_DATA, payload: recipes});
             }, 1500);
         } else {
             setTimeout(() => {
