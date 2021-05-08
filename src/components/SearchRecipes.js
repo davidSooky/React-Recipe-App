@@ -20,7 +20,7 @@ const SearchRecipes = () => {
             dispatch(clearData());
             const id = setTimeout(() => {
                 dispatch(addData(query));
-            }, 1500);
+            }, 1000);
 
             return () => {
                 clearTimeout(id);

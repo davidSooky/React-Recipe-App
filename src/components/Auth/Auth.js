@@ -6,6 +6,7 @@ import "./style.css";
 
 const Auth = ({ openModal }) => {
     const [isSignup, setIsSignup] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [inputData, setInputData] = useState({username: "", email: "", password: "", confirmPassword: ""});
 
     const handleChange = (e) => {
@@ -19,18 +20,22 @@ const Auth = ({ openModal }) => {
     };
 
     return (
-        <div className={`auth-form ${isSignup ? "active" : null}`}>
+        <div className={`auth-form ${isSignup ? "active" : ""}`}>
             <LoginForm 
                 inputData={inputData}
                 handleChange={handleChange}
                 openModal={openModal}
                 handleClick={handleClick}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
             />
             <SignUpForm
                 inputData={inputData}
                 handleChange={handleChange}
                 openModal={openModal}
                 handleClick={handleClick}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
             />
         </div>
     );

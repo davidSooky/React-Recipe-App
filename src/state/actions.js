@@ -94,9 +94,11 @@ export const clearRecipes = () => {
 };
 
 // Auth actions
-export const login = (route, inputData) => async dispatch => {
+export const login = (route, openModal, inputData) => async dispatch => {
     try {
         const { data } = await api.login(inputData);
+
+        openModal(false);
         route.push("/");
         dispatch({type: LOGIN, payload: data});
     } catch (error) {
@@ -104,9 +106,11 @@ export const login = (route, inputData) => async dispatch => {
     }
 };
 
-export const signup = (route, inputData) => async dispatch => {
+export const signup = (route, openModal, inputData) => async dispatch => {
     try {
         const { data } = await api.signup(inputData);
+        
+        openModal(false);
         route.push("/");
         dispatch({type: REGISTER, payload: data});
     } catch (error) {

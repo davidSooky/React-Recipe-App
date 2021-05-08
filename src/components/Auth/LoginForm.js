@@ -5,15 +5,14 @@ import { useHistory } from "react-router-dom";
 import Barbecue from "./Barbecue";
 import { login } from "../../state/actions";
 
-const LoginForm = ({ inputData, handleChange, openModal, handleClick }) => {
+const LoginForm = ({ inputData, handleChange, openModal, handleClick, showPassword, setShowPassword }) => {
     const dispatch = useDispatch();
     const route = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        openModal(false);
-        dispatch(login(route, inputData));
+        dispatch(login(route, openModal, inputData));
     }
 
     return (
@@ -23,12 +22,13 @@ const LoginForm = ({ inputData, handleChange, openModal, handleClick }) => {
                 <div className="input-field">
                     <input type="email" id="email-login" name="email" required placeholder="Email"value={inputData.email} onChange={handleChange} />
                     <span></span>
-                    <label htmlFor="email-login"><i class="fas fa-envelope"></i></label>
+                    <label htmlFor="email-login"><i className="fas fa-envelope"></i></label>
                 </div>
                 <div className="input-field">
-                    <input type="password" id="password-login" name="password" required placeholder="Password" value={inputData.password} onChange={handleChange} />
+                    <input type={showPassword ? "text" : "password"} id="password-login" name="password" required placeholder="Password" value={inputData.password} onChange={handleChange} />
                     <span></span>
-                    <label htmlFor="password-login"><i class="fas fa-lock"></i></label>
+                    <label htmlFor="password-login"><i className="fas fa-lock"></i></label>
+                    <i className="far fa-eye-slash" onClick={() => setShowPassword(!showPassword)}></i>
                 </div>
                 <input type="submit" value="Login" className="btn btn-login" />
                 <p>Does not have an account ? Create one</p>

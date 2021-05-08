@@ -129,6 +129,10 @@
   font-size: 17px;
 }
 
+.far.fa-eye-slash {
+  cursor: pointer;
+}
+
 .auth-button {
   padding: 10px 20px;
   min-width: 40%;
