@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import SearchField from "./SearchField";
 import RecipeList from "./RecipeList";
+import Filters from "./Filters";
 
 import { addData, clearData } from "../state/actions";
 import { getCurrentDate } from "./utilities";
@@ -12,6 +13,7 @@ const SearchRecipes = () => {
 
     const [query, setQuery] = useState("");
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
+    const [labels, setLabels] = useState({dietLabels: [], healthLabels: []});
 
     useEffect(() => {
         document.title = "Search for recipes";
@@ -36,7 +38,8 @@ const SearchRecipes = () => {
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
             />
-            <RecipeList selectedDate={selectedDate} />
+            <Filters setLabels={setLabels} />
+            <RecipeList selectedDate={selectedDate} labels={labels} />
         </section>
     );
 };

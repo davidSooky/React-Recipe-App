@@ -22,19 +22,15 @@ export const LOGOUT = "LOGOUT";
 
 export const addData = (query) => async dispatch => {
     dispatch({type: ADD_DATA_LOADING});
-    try {
-        const { data: { hits } } = await axios.get(BASE_URL, {params: {
-            q: query,
-            app_id: APP_ID,
-            app_key: APP_KEY,
-            to: 100
-        }});
 
-        const recipes = shuffleRecipes(hits).slice(0,20);
+    try {
+        const params = {q: query, app_id: APP_ID, app_key: APP_KEY, to: 100};
+
+        const { data: { hits } } = await axios.get(BASE_URL, {params});
 
         if(hits.length) {
             setTimeout(() => {
-                dispatch({type: ADD_DATA, payload: recipes});
+                dispatch({type: ADD_DATA, payload: shuffleRecipes(hits)});
             }, 1500);
         } else {
             setTimeout(() => {
