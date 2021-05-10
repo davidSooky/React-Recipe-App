@@ -348,6 +348,7 @@ html {
 }
 /* CSSTransition styling */
 
+/* Accordion styling */
 .accordion span {
   font-weight: bold;
 }
@@ -517,10 +518,10 @@ html {
 }
 
 .btn-show, .btn-delete {
-  padding: 10px 20px;
   display: inline-block;
   margin-top: 20px;
   width: auto;
+  font-size: 15px;
 }
 
 .btn-delete {

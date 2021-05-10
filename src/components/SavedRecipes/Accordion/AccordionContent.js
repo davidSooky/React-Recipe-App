@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 
-import CalorieChart from "./CalorieChart";
+import CalorieChart from "../CalorieChart";
 
-import { deleteRecipe } from "../state/actions";
+import { deleteRecipe } from "../../../state/actions";
 
 const AccordionContent = ({ recipes }) => {
     const [chartVisible, setChartVisible] = useState(false);
@@ -12,11 +12,11 @@ const AccordionContent = ({ recipes }) => {
 
     return (
         <div className="content-container">
-            <a className="btn btn-chart"
+            <button className="btn btn-chart"
                 onClick={() => setChartVisible(!chartVisible)}
             >
                 {chartVisible ? "Hide chart" : "Show chart"}
-            </a>
+            </button>
         <CSSTransition in={chartVisible} timeout={300} classNames="chart">
             {!chartVisible ?
             <div>
@@ -38,14 +38,14 @@ const AccordionContent = ({ recipes }) => {
                                     })}
                                 </ul>
                                 <a href={url} className="btn btn-show" rel="noreferrer" target="_blank">Show recipe</a>
-                                <a 
+                                <button 
                                     className="btn btn-delete"
                                     onClick={() => {
                                         dispatch(deleteRecipe(_id));
                                     }}
                                 >
                                     Delete recipe
-                                </a>
+                                </button>
                             </div>
                             <div className="energy">
                                 <h3 className="meal-name">

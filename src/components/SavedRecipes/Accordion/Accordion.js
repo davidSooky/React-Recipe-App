@@ -4,8 +4,8 @@ import { CSSTransition } from "react-transition-group";
 
 import AccordionContent from "./AccordionContent";
 
-import { clearDay } from "../state/actions";
-import { getDayName } from "./utilities";
+import { clearDay } from "../../../state/actions";
+import { getDayName } from "../../utilities";
 
 const Accordion = ({ recipes, date }) => {
     const [visible, setVisible] = useState(true);

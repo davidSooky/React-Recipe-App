@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
-import { getRecipes } from "../state/actions";
-import Accordion from "./Accordion";
+import { getRecipes } from "../../state/actions";
+import Accordion from "./Accordion/Accordion";
 
 const SavedRecipes = () => {
     const savedRecipes = useSelector(state => state.savedRecipes.recipes);

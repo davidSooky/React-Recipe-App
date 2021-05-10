@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
-import { addRecipe } from "../state/actions";
-import  { checkIfIncludes } from "./utilities";
+import { addRecipe } from "../../state/actions";
+import  { checkIfIncludes } from "../utilities";
 import RecipeItem from "./RecipeItem";
 
 const RecipeList = ({ selectedDate, labels }) => {

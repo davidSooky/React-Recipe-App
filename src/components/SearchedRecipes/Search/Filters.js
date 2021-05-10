@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { healthLabels, dietLabels } from "./utilities";
+import { healthLabels, dietLabels } from "../../utilities";
 
 const Filters = ({ setLabels }) => {
 

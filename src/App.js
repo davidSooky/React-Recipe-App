@@ -5,12 +5,12 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import Header from "./Header";
-import Modal from "./Modal";
-import Auth from "./Auth/Auth";
-import Footer from "./Footer";
-import SearchRecipes from "./SearchRecipes";
-import SavedRecipes from "./SavedRecipes";  
+import Header from "./components/Header/Header";
+import Modal from "./components/Modal/Modal";
+import Auth from "./components/Auth/Auth";
+import Footer from "./components/Footer/Footer";
+import SearchRecipes from "./components/SearchedRecipes/SearchRecipes";
+import SavedRecipes from "./components/SavedRecipes/SavedRecipes";  
 
 
 const App = () => {

@@ -1,12 +1,12 @@
 import React, {useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 
-import SearchField from "./SearchField";
+import SearchField from "./Search/SearchField";
 import RecipeList from "./RecipeList";
-import Filters from "./Filters";
+import Filters from "./Search/Filters";
 
-import { addData, clearData } from "../state/actions";
-import { getCurrentDate } from "./utilities";
+import { addData, clearData } from "../../state/actions";
+import { getCurrentDate } from "../utilities";
 
 const SearchRecipes = () => {
     const dispatch = useDispatch();

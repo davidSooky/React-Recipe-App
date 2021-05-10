@@ -7,9 +7,9 @@ import decode from "jwt-decode";
 import { TimelineLite, Power2, gsap } from "gsap";
 import CSSRulePlugin from "gsap/CSSRulePlugin";
 
-import { logout, clearData } from "../state/actions";
-import headerImg from "../images/header-img.jpg";
-import logo from "../images/logo.png";
+import { logout, clearData } from "../../state/actions";
+import headerImg from "../../images/header-img.jpg";
+import logo from "../../images/logo.png";
 
 gsap.registerPlugin(CSSRulePlugin);
 
@@ -28,12 +28,6 @@ export const Header = ({ openModal }) => {
     const dispatch = useDispatch();
     const route = useHistory();
 
-    const handleNavScroll = () => {
-        document.body.scrollTop > 150 || document.documentElement.scrollTop > 150
-        ? setScrolled(true)
-        : setScrolled(false) 
-    };
-
     const tl = useMemo(() => new TimelineLite(), []);
 
     const closeNav = useCallback((e) => {
@@ -43,12 +37,7 @@ export const Header = ({ openModal }) => {
             }
         }  
     }, [open]);
-
-    const handleLogout = () => {
-        dispatch(clearData());
-        dispatch(logout(route));
-    };
-
+    
     // Header reveal animation
     useEffect(() => {
         tl.set(container.current, {css: {visibility: "visible"}});
@@ -73,6 +62,19 @@ export const Header = ({ openModal }) => {
         };
     }, [open, closeNav, currentPage, dispatch, route]);
 
+    const handleNavScroll = () => {
+        document.body.scrollTop > 150 || document.documentElement.scrollTop > 150
+        ? setScrolled(true)
+        : setScrolled(false) 
+    };
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        
+        dispatch(clearData());
+        dispatch(logout(route));
+    };
+
     return (
         <header className="header">
             <nav className={`header-container ${scrolled ? "scrolled" : ""}`} ref={navRef}>
@@ -89,8 +91,12 @@ export const Header = ({ openModal }) => {
                     </li>
                     <li>
                         {!user
-                            ? <a href="javascript:void(0);" onClick={() => openModal(true)}>Login</a>
-                            : <a href="javascript:void(0);" onClick={handleLogout}>Logout</a>
+                            ? <a href="" onClick={(e) => {
+                                e.preventDefault();
+                                openModal(true);
+                            }
+                            }>Login</a>
+                            : <a href="" onClick={handleLogout}>Logout</a>
                         }
                     </li>
                 </ul>

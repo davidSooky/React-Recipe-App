@@ -1,19 +1,19 @@
-import { ADD_DATA, GET_RECIPES, SAVE_RECIPE, DELETE_RECIPE, CLEAR_DATA, CLEAR_RECIPES, CLEAR_DAY, GET_RECIPES_START_LOADING, GET_RECIPES_ERROR, LOGIN, LOGIN_ERROR, LOGOUT, REGISTER, ADD_DATA_ERROR, ADD_DATA_LOADING } from "./actions";
 import { combineReducers } from "redux";
 import { toast } from "react-toastify";
 import decode from "jwt-decode";
 
+import actionTypes from "../constants";
 import { getDayName } from "../components/utilities";
 
 const searchedRecipesReducer = (state = {recipes: [], error: null, loading: false}, action) => {
     switch (action.type) {
-        case ADD_DATA:
+        case actionTypes.ADD_DATA:
             return {...state, recipes: [...action.payload], loading: false, error: null};
-        case ADD_DATA_LOADING:
+        case actionTypes.ADD_DATA_LOADING:
             return {...state, loading: true, error: null};
-        case ADD_DATA_ERROR:
+        case actionTypes.ADD_DATA_ERROR:
             return {...state, error: action.error, loading: false};
-        case CLEAR_DATA:
+        case actionTypes.CLEAR_DATA:
             return {...state, recipes: [], error: null};
         default:
             return state;
@@ -28,23 +28,23 @@ const initialState = {
 
 const savedRecipesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_RECIPES_START_LOADING:
+        case actionTypes.GET_RECIPES_START_LOADING:
             return {...state, loading: action.payload, error: null};
-        case GET_RECIPES:
+        case actionTypes.GET_RECIPES:
             return {...state, recipes: [...action.payload], loading: false};
-        case GET_RECIPES_ERROR:
+        case actionTypes.GET_RECIPES_ERROR:
             toast.error(`${action.error}`);
             return {...state, loading: false, error: action.error};
-        case SAVE_RECIPE:
+        case actionTypes.SAVE_RECIPE:
             toast.success(`${action.payload.name} saved to your plan.`);
             return {...state, recipes: [...state.recipes, action.payload]};
-        case DELETE_RECIPE:
+        case actionTypes.DELETE_RECIPE:
             toast.success("Recipe deleted.");
             return {...state, recipes: state.recipes.filter(recipe => recipe._id !== action.id)};
-        case CLEAR_DAY:
+        case actionTypes.CLEAR_DAY:
             toast.success(`${action.date} / ${getDayName(action.date)} cleared.`);
             return {...state, recipes: state.recipes.filter(recipe => recipe.date !== action.date)};
-        case CLEAR_RECIPES:
+        case actionTypes.CLEAR_RECIPES:
             return {...state, recipes: []};
         default:
             return state;
@@ -58,15 +58,15 @@ const authInitialState = {
 
 const authReducer = (state = authInitialState, action) => {
     switch(action.type) {
-        case LOGIN:
-        case REGISTER:
+        case actionTypes.LOGIN:
+        case actionTypes.REGISTER:
             localStorage.setItem("token", JSON.stringify(action.payload.token));
             toast.success("Logged in successfully");
             return {...state, user: decode(action.payload.token).username, error: null};
-        case LOGIN_ERROR:
+        case actionTypes.LOGIN_ERROR:
             toast.error(`${action.error}`);
             return {...state, error: action.error};
-        case LOGOUT:
+        case actionTypes.LOGOUT:
             localStorage.removeItem("token");
             toast.success("Logged out successfully");
             return {user: null, error: null};

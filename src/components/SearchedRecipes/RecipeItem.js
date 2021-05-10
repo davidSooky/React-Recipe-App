@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useVisible from "./useVisible";
+import useVisible from "../useVisible";
 
 const RecipeItem = ({ data, children }) => {
     const [setRef, visible] = useVisible({root: null, rootMargin: "200px", threshold: 0.5});
