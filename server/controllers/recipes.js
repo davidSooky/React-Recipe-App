@@ -33,7 +33,11 @@ export const saveRecipe = async (req, res) => {
                 PROCNT: { quantity: protein }
             }}
         } = req.body;
-    
+        
+        const allRecipesForDate = await Recipe.find({date});
+        const existingRecipe = allRecipesForDate.filter(recipe => recipe.name === name);
+        if(existingRecipe.length) return res.status(409).send(`Recipe already saved for ${date}`);
+
         const newRecipe = new Recipe({owner: id, name, date, image, url, calories, weight, ingredients, nutrients: {fat, carbs, sugar, protein}});
 
         await newRecipe.save();

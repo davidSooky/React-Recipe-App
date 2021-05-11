@@ -61,7 +61,7 @@ const authReducer = (state = authInitialState, action) => {
         case actionTypes.LOGIN:
         case actionTypes.REGISTER:
             localStorage.setItem("token", JSON.stringify(action.payload.token));
-            toast.success("Logged in successfully");
+            toast.success(action.payload.message);
             return {...state, user: decode(action.payload.token).username, error: null};
         case actionTypes.LOGIN_ERROR:
             toast.error(`${action.error}`);
