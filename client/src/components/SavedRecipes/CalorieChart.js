@@ -6,7 +6,7 @@ const CalorieChart = ({ sourceData }) => {
     const ref = useRef(null);
     const keys = Object.keys(sourceData[0].nutrients);
 
-    const getDataForChart = (sourceData) => {
+    const getDataForChart = sourceData => {
         return keys.map(key => {
             return sourceData.reduce((acc, { nutrients }) => parseFloat(acc) + parseFloat(nutrients[key].$numberDecimal), 0).toFixed(2);
         });

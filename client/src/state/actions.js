@@ -3,7 +3,6 @@ import axios from "axios";
 
 import actionTypes from "../constants";
 import { APP_ID, APP_KEY, BASE_URL } from "../config";
-import { shuffleRecipes } from "../components/utilities";
 
 
 export const addData = (query) => async dispatch => {
@@ -16,7 +15,7 @@ export const addData = (query) => async dispatch => {
 
         if(hits.length) {
             setTimeout(() => {
-                dispatch({type: actionTypes.ADD_DATA, payload: shuffleRecipes(hits)});
+                dispatch({type: actionTypes.ADD_DATA, payload: hits});
             }, 1500);
         } else {
             setTimeout(() => {

@@ -10,7 +10,6 @@ import { getCurrentDate } from "../utilities";
 
 const SearchRecipes = () => {
     const dispatch = useDispatch();
-
     const [query, setQuery] = useState("");
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
     const [labels, setLabels] = useState({dietLabels: [], healthLabels: []});
@@ -39,7 +38,11 @@ const SearchRecipes = () => {
                 setSelectedDate={setSelectedDate}
             />
             <Filters setLabels={setLabels} />
-            <RecipeList selectedDate={selectedDate} labels={labels} />
+            <RecipeList 
+                selectedDate={selectedDate}
+                labels={labels}
+                query={query}
+            />
         </section>
     );
 };
