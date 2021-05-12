@@ -17,7 +17,9 @@ Backend has been created with express, MongoDB is used as database.
 
 ## Getting started
 Version using localStorage without own profile: Check out the live demo [here](https://agitated-minsky-5e5c92.netlify.app/)
+
 Version using API built with Express - create your own profile: Check out the live demo [here](https://recipe-search-project.netlify.app/)
+
 If you do not want to create your own profile, login with -- email: testuser@gmail.com, password: test1234 -- to check out full functionality.
 
 To get the frontend running locally:
