@@ -4,6 +4,7 @@ const usePaginate = (recipes, query) => {
     const observer = useRef();
     const [lastPage, setLastPage] = useState(20);
     const [hasMore, setHasMore] = useState(true);
+    const [loadMore, setLoadMore] = useState(false);
 
     useEffect(() => {
         setLastPage(20);
@@ -17,9 +18,11 @@ const usePaginate = (recipes, query) => {
         if(observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(([entry]) => {
             if(entry.isIntersecting && hasMore) {
+                setLoadMore(true);
                 setTimeout(() => {
                     setLastPage(lastPage + 20);
-                }, 1000);
+                    setLoadMore(false);
+                }, 1500);
                 setHasMore(lastPage < recipes.length);
             }
         });
@@ -27,7 +30,7 @@ const usePaginate = (recipes, query) => {
         if(node) observer.current.observe(node);
     }, [hasMore, recipes, lastPage, setLastPage]);
 
-    return [paginate, lastRecipeRef, lastPage];
+    return [paginate, lastRecipeRef, lastPage, loadMore];
 };
 
 export default usePaginate;

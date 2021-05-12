@@ -12,7 +12,7 @@ const RecipeList = ({ selectedDate, labels, query }) => {
     const isLoading = useSelector(state => state.searchedRecipes.loading);
     const dispatch = useDispatch();
 
-    const [paginate, lastRecipeRef, lastPage] = usePaginate(recipes, query);
+    const [paginate, lastRecipeRef, lastPage, loadMore] = usePaginate(recipes, query);
 
     useEffect(() => {
         if(recipes.length) {
@@ -72,6 +72,7 @@ const RecipeList = ({ selectedDate, labels, query }) => {
                 <h1>{(isLoading && "Loading recipes...") || error || "Select a day and start to search for recipes."}</h1>
             </div>
             }
+            {loadMore && <h1>Loading more recipes...</h1>}
         </div>
     );
 };
